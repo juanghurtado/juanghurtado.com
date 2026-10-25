@@ -93,5 +93,5 @@ git push origin master
 - Tipografía del sistema: cero peticiones a fuentes externas.
 - Modo claro y oscuro con preferencia guardada. Atajo de teclado: `D`.
 - Avatar pixel-art en SVG, usado como logo y favicon.
-- Una sola columna de 38rem, sin menús ni barra lateral.
+- Una sola columna de 50rem, sin menús ni barra lateral.
 - RSS en `/feed.xml` y sitemap en `/sitemap.xml`.

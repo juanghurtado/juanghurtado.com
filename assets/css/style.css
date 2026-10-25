@@ -45,7 +45,7 @@
     "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Code",
     "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --measure: 38rem;
+  --measure: 50rem;
   --line-height: 1.6;
 
   color-scheme: light;
@@ -233,8 +233,9 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 0.9375rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   text-decoration: none;
   white-space: nowrap;
@@ -245,14 +246,14 @@ main {
   flex: none;
   padding: 2px;
   background: var(--flexoki-paper);
-  border-radius: 6px;
+  border-radius: 10px;
   line-height: 0;
 }
 
 .site-logo img {
   display: block;
-  width: 26px;
-  height: 26px;
+  width: 48px;
+  height: 48px;
   image-rendering: pixelated;
 }
 
@@ -765,21 +766,19 @@ main {
   }
 
   .site-nav {
+    flex-wrap: wrap;
     gap: 1rem;
+    row-gap: 0.75rem;
   }
 
   .site-nav-links {
     gap: 1rem;
+    margin-left: auto;
   }
 
   .site-logo {
     padding: 1px;
-    border-radius: 5px;
-  }
-
-  .site-logo img {
-    width: 24px;
-    height: 24px;
+    border-radius: 10px;
   }
 
   .post-item {
@@ -811,15 +810,6 @@ main {
 }
 
 @media (max-width: 360px) {
-  .site-title {
-    font-size: 0.875rem;
-  }
-
-  .site-logo img {
-    width: 22px;
-    height: 22px;
-  }
-
   .site-nav-links {
     gap: 0.8rem;
   }
