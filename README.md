@@ -80,54 +80,6 @@ git commit -m "Añade un post"
 git push origin master
 ```
 
-No hace falta compilar ni subir `_site` a mano. El dominio personalizado se
-define en el archivo `CNAME` (`www.juanghurtado.com`).
-
-La versión anterior del sitio (la tarjeta de visita) se conserva en la rama
-`legacy-cv`.
-
-### Alternativa: build nativo de Pages
-
-Si prefieres que GitHub Pages compile el sitio directamente, sin Actions:
-
-1. Ve a **Settings → Pages**.
-2. En *Build and deployment*, elige **Deploy from a branch**.
-3. Selecciona la rama `master` y la carpeta `/ (root)`.
-4. Borra `.github/workflows/deploy.yml` y la rama `gh-pages`.
-
-Con esa configuración, cada push a `master` reconstruye el sitio con el Jekyll
-integrado de GitHub Pages.
-
-## DNS y dominio
-
-El dominio está registrado en IONOS, pero el DNS lo gestiona Cloudflare. GitHub
-Pages sirve el sitio en `www.juanghurtado.com`.
-
-En Cloudflare, los registros de origen son:
-
-| Tipo | Nombre | Valor | Proxy |
-| --- | --- | --- | --- |
-| `A` | `@` | `185.199.108.153`<br>`185.199.109.153`<br>`185.199.110.153`<br>`185.199.111.153` | Proxied |
-| `AAAA` | `@` | `2606:50c0:8000::153`<br>`2606:50c0:8001::153`<br>`2606:50c0:8002::153`<br>`2606:50c0:8003::153` | Proxied |
-| `CNAME` | `www` | `juanghurtado.github.io.` | DNS only |
-
-El apex está proxificado: públicamente resuelve a las IPs de Cloudflare. `www`
-va directo a GitHub para que GitHub pueda emitir y renovar su certificado.
-
-Cloudflare termina el TLS de `juanghurtado.com` con su certificado Universal SSL
-y redirige al canónico. La Redirect Rule debe conservar la ruta:
-
-- Expresión: `concat("https://www.juanghurtado.com", http.request.uri.path)`
-- *Preserve query string*: activado
-- Código: `301`
-
-Un redirect estático a `https://www.juanghurtado.com` pierde la ruta:
-`/feed.xml` o `/hola-mundo/` acaban en la home.
-
-GitHub Pages solo emite el certificado para el dominio exacto configurado como
-custom domain (`www.juanghurtado.com`). Por eso el apex necesita el proxy de
-Cloudflare.
-
 ## Detalles de diseño
 
 - Paleta [Flexoki](https://stephango.com/flexoki) (MIT), de Steph Ango.
