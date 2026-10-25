@@ -19,6 +19,13 @@ bundle exec jekyll serve
 El sitio queda disponible en <http://localhost:4000>. Jekyll recarga los
 cambios automáticamente.
 
+También puedes usar el script, que detecta Ruby 3.x, instala las dependencias
+si faltan y arranca con recarga en vivo:
+
+```sh
+./scripts/dev.sh
+```
+
 ## Escribir un post
 
 Crea un archivo en `_posts/` con este nombre:
