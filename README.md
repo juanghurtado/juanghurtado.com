@@ -123,6 +123,11 @@ raíz impide que GitHub emita el certificado para `juanghurtado.com`.
 Con el dominio personalizado configurado como `www.juanghurtado.com`, GitHub
 Pages redirige automáticamente `juanghurtado.com` a `www.juanghurtado.com`.
 
+Si después de cambiar el DNS el certificado sigue cubriendo solo `www`, entra
+en **Settings → Pages**, pulsa **Remove** junto al dominio personalizado y
+vuelve a guardar `www.juanghurtado.com`. Eso fuerza a GitHub a emitir un
+certificado nuevo que incluya el dominio raíz y el subdominio.
+
 ## Detalles de diseño
 
 - Paleta [Flexoki](https://stephango.com/flexoki) (MIT), de Steph Ango.
