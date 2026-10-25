@@ -5,7 +5,7 @@ description: Quién escribe aquí y de qué va esto.
 permalink: /acerca/
 ---
 
-Soy **Juan G. Hurtado**, desarrollador de software y un simple ser humano más. Llevo años construyendo, cuidando el detalle y discutiendo conmigo mismo sobre tipografía, espaciado y la cantidad justa de JavaScript.
+Soy **Juan G. Hurtado**, desarrollador de software y un simple ser humano más. Llevo años construyendo, cuidando el detalle y discutiendo conmigo mismo sobre cómo estructurar mejor el código, cómo hacer más con menos y cómo mejorar la experiencia de usuario.
 
 Este es mi blog personal. Aquí escribo sobre cualquier cosa: desde asuntos técnicos del oficio hasta mis pensamientos más absurdos.
 
