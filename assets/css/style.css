@@ -230,11 +230,30 @@ main {
 }
 
 .site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
   white-space: nowrap;
+}
+
+.site-logo {
+  display: inline-flex;
+  flex: none;
+  padding: 2px;
+  background: var(--flexoki-paper);
+  border-radius: 6px;
+  line-height: 0;
+}
+
+.site-logo img {
+  display: block;
+  width: 26px;
+  height: 26px;
+  image-rendering: pixelated;
 }
 
 .site-title:hover {
@@ -753,6 +772,16 @@ main {
     gap: 1rem;
   }
 
+  .site-logo {
+    padding: 1px;
+    border-radius: 5px;
+  }
+
+  .site-logo img {
+    width: 24px;
+    height: 24px;
+  }
+
   .post-item {
     grid-template-columns: 4.25rem 1fr;
     gap: 0.6rem;
@@ -784,6 +813,11 @@ main {
 @media (max-width: 360px) {
   .site-title {
     font-size: 0.875rem;
+  }
+
+  .site-logo img {
+    width: 22px;
+    height: 22px;
   }
 
   .site-nav-links {

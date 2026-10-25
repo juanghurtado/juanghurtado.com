@@ -1,6 +1,11 @@
 <header class="site-header">
   <nav class="site-nav" aria-label="Principal">
-    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+    <a class="site-title" href="{{ '/' | relative_url }}">
+      <span class="site-logo" aria-hidden="true">
+        <img src="{{ '/assets/avatar.svg' | relative_url }}" alt="" width="24" height="24">
+      </span>
+      <span>{{ site.author.name }}</span>
+    </a>
 
     <div class="site-nav-links">
       <a href="{{ '/acerca/' | relative_url }}">Acerca</a>
