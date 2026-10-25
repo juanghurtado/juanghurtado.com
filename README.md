@@ -83,6 +83,9 @@ git push origin master
 No hace falta compilar ni subir `_site` a mano. El dominio personalizado se
 define en el archivo `CNAME` (`www.juanghurtado.com`).
 
+La versión anterior del sitio (la tarjeta de visita) se conserva en la rama
+`legacy-cv`.
+
 ### Alternativa: build nativo de Pages
 
 Si prefieres que GitHub Pages compile el sitio directamente, sin Actions:
