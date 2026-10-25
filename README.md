@@ -98,6 +98,31 @@ Si prefieres que GitHub Pages compile el sitio directamente, sin Actions:
 Con esa configuración, cada push a `master` reconstruye el sitio con el Jekyll
 integrado de GitHub Pages.
 
+## DNS y dominio
+
+El dominio está en IONOS y el sitio en GitHub Pages. Para que funcionen tanto
+`juanghurtado.com` como `www.juanghurtado.com` con HTTPS, los registros DNS
+deben ser exactamente estos:
+
+| Tipo | Nombre | Valor |
+| --- | --- | --- |
+| `A` | `@` | `185.199.108.153` |
+| `A` | `@` | `185.199.109.153` |
+| `A` | `@` | `185.199.110.153` |
+| `A` | `@` | `185.199.111.153` |
+| `AAAA` | `@` | `2606:50c0:8000::153` |
+| `AAAA` | `@` | `2606:50c0:8001::153` |
+| `AAAA` | `@` | `2606:50c0:8002::153` |
+| `AAAA` | `@` | `2606:50c0:8003::153` |
+| `CNAME` | `www` | `juanghurtado.github.io.` |
+
+No debe quedar ningún otro registro `A`, `AAAA`, `ALIAS` o `ANAME` en `@`
+(por ejemplo, una redirección del registrador). Un registro extra en el dominio
+raíz impide que GitHub emita el certificado para `juanghurtado.com`.
+
+Con el dominio personalizado configurado como `www.juanghurtado.com`, GitHub
+Pages redirige automáticamente `juanghurtado.com` a `www.juanghurtado.com`.
+
 ## Detalles de diseño
 
 - Paleta [Flexoki](https://stephango.com/flexoki) (MIT), de Steph Ango.
