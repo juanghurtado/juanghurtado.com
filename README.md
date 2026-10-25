@@ -100,50 +100,33 @@ integrado de GitHub Pages.
 
 ## DNS y dominio
 
-El dominio está en IONOS y el sitio en GitHub Pages. Para que funcionen tanto
-`juanghurtado.com` como `www.juanghurtado.com` con HTTPS, los registros DNS
-deben ser exactamente estos:
+El dominio está registrado en IONOS, pero el DNS lo gestiona Cloudflare. GitHub
+Pages sirve el sitio en `www.juanghurtado.com`.
 
-| Tipo | Nombre | Valor |
-| --- | --- | --- |
-| `A` | `@` | `185.199.108.153` |
-| `A` | `@` | `185.199.109.153` |
-| `A` | `@` | `185.199.110.153` |
-| `A` | `@` | `185.199.111.153` |
-| `AAAA` | `@` | `2606:50c0:8000::153` |
-| `AAAA` | `@` | `2606:50c0:8001::153` |
-| `AAAA` | `@` | `2606:50c0:8002::153` |
-| `AAAA` | `@` | `2606:50c0:8003::153` |
-| `CNAME` | `www` | `juanghurtado.github.io.` |
+En Cloudflare, los registros de origen son:
 
-No debe quedar ningún otro registro `A`, `AAAA`, `ALIAS` o `ANAME` en `@`
-(por ejemplo, una redirección del registrador). Un registro extra en el dominio
-raíz impide que GitHub emita el certificado para `juanghurtado.com`.
+| Tipo | Nombre | Valor | Proxy |
+| --- | --- | --- | --- |
+| `A` | `@` | `185.199.108.153`<br>`185.199.109.153`<br>`185.199.110.153`<br>`185.199.111.153` | Proxied |
+| `AAAA` | `@` | `2606:50c0:8000::153`<br>`2606:50c0:8001::153`<br>`2606:50c0:8002::153`<br>`2606:50c0:8003::153` | Proxied |
+| `CNAME` | `www` | `juanghurtado.github.io.` | DNS only |
 
-Con el dominio personalizado configurado como `www.juanghurtado.com`, GitHub
-Pages redirige automáticamente `juanghurtado.com` a `www.juanghurtado.com`
-por HTTP.
+El apex está proxificado: públicamente resuelve a las IPs de Cloudflare. `www`
+va directo a GitHub para que GitHub pueda emitir y renovar su certificado.
 
-### HTTPS en el dominio raíz
+Cloudflare termina el TLS de `juanghurtado.com` con su certificado Universal SSL
+y redirige al canónico. La Redirect Rule debe conservar la ruta:
 
-GitHub Pages emite el certificado TLS para el dominio exacto configurado como
-custom domain (`www.juanghurtado.com`). No incluye automáticamente el dominio
-raíz, así que `https://juanghurtado.com` sigue fallando aunque el DNS sea
-correcto y aunque se vuelva a guardar el dominio.
+- Expresión: `concat("https://www.juanghurtado.com", http.request.uri.path)`
+- *Preserve query string*: activado
+- Código: `301`
 
-Para tener HTTPS en ambos hace falta terminar el TLS en un proxy externo. La
-opción gratuita y habitual es Cloudflare:
+Un redirect estático a `https://www.juanghurtado.com` pierde la ruta:
+`/feed.xml` o `/hola-mundo/` acaban en la home.
 
-1. Añade el dominio a Cloudflare e importa los registros DNS.
-2. Deja los `A` del apex apuntando a las IPs de GitHub, en modo *Proxied*.
-3. Deja `www` como `CNAME` a `juanghurtado.github.io`, en modo *DNS only*.
-4. Cambia los nameservers en IONOS por los que asigne Cloudflare.
-5. Activa *Always Use HTTPS* y SSL/TLS en *Full (strict)*.
-6. Crea una Redirect Rule para `juanghurtado.com` hacia
-   `https://www.juanghurtado.com`, conservando ruta y query string (301).
-
-Así Cloudflare termina el TLS del apex y redirige a `www`, mientras GitHub
-sigue gestionando el certificado de `www` sin interferencias.
+GitHub Pages solo emite el certificado para el dominio exacto configurado como
+custom domain (`www.juanghurtado.com`). Por eso el apex necesita el proxy de
+Cloudflare.
 
 ## Detalles de diseño
 
