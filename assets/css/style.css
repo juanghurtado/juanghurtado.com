@@ -794,7 +794,8 @@ main {
 /* --- Impresión ------------------------------------------------------------ */
 
 @media print {
-  :root {
+  :root,
+  :root[data-theme="dark"] {
     --color-bg: #fff;
     --color-text: #000;
     --color-muted: #444;
@@ -802,8 +803,11 @@ main {
   }
 
   body {
+    display: block;
     padding: 0;
     max-width: none;
+    background: #fff;
+    color: #000;
     font-size: 12pt;
   }
 
