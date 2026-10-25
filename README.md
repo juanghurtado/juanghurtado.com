@@ -121,12 +121,29 @@ No debe quedar ningún otro registro `A`, `AAAA`, `ALIAS` o `ANAME` en `@`
 raíz impide que GitHub emita el certificado para `juanghurtado.com`.
 
 Con el dominio personalizado configurado como `www.juanghurtado.com`, GitHub
-Pages redirige automáticamente `juanghurtado.com` a `www.juanghurtado.com`.
+Pages redirige automáticamente `juanghurtado.com` a `www.juanghurtado.com`
+por HTTP.
 
-Si después de cambiar el DNS el certificado sigue cubriendo solo `www`, entra
-en **Settings → Pages**, pulsa **Remove** junto al dominio personalizado y
-vuelve a guardar `www.juanghurtado.com`. Eso fuerza a GitHub a emitir un
-certificado nuevo que incluya el dominio raíz y el subdominio.
+### HTTPS en el dominio raíz
+
+GitHub Pages emite el certificado TLS para el dominio exacto configurado como
+custom domain (`www.juanghurtado.com`). No incluye automáticamente el dominio
+raíz, así que `https://juanghurtado.com` sigue fallando aunque el DNS sea
+correcto y aunque se vuelva a guardar el dominio.
+
+Para tener HTTPS en ambos hace falta terminar el TLS en un proxy externo. La
+opción gratuita y habitual es Cloudflare:
+
+1. Añade el dominio a Cloudflare e importa los registros DNS.
+2. Deja los `A` del apex apuntando a las IPs de GitHub, en modo *Proxied*.
+3. Deja `www` como `CNAME` a `juanghurtado.github.io`, en modo *DNS only*.
+4. Cambia los nameservers en IONOS por los que asigne Cloudflare.
+5. Activa *Always Use HTTPS* y SSL/TLS en *Full (strict)*.
+6. Crea una Redirect Rule para `juanghurtado.com` hacia
+   `https://www.juanghurtado.com`, conservando ruta y query string (301).
+
+Así Cloudflare termina el TLS del apex y redirige a `www`, mientras GitHub
+sigue gestionando el certificado de `www` sin interferencias.
 
 ## Detalles de diseño
 
