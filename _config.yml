@@ -1,0 +1,56 @@
+# --- Identidad -------------------------------------------------------------
+title: Juan G. Hurtado
+tagline: Notas sobre desarrollo web, diseño y oficio.
+description: >-
+  Blog personal de Juan G. Hurtado. Notas sobre desarrollo web, diseño,
+  tipografía y las herramientas con las que trabajo.
+lang: es
+timezone: Europe/Madrid
+
+author:
+  name: Juan G. Hurtado
+  email: hello@juanghurtado.com
+
+# --- URLs ------------------------------------------------------------------
+url: https://www.juanghurtado.com
+baseurl: ""
+permalink: /:title/
+
+# --- Construcción ----------------------------------------------------------
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 2..3
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - node_modules

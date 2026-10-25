@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<div class="home">
+  <h1 class="visually-hidden">{{ site.title }} — {{ site.tagline }}</h1>
+
+  {% assign latest = site.posts.first %}
+  {% if latest %}
+    <p class="section-label">Último</p>
+
+    <div class="featured">
+      <h2 class="featured-title">
+        <a href="{{ latest.url | relative_url }}">{{ latest.title }}</a>
+      </h2>
+
+      <p class="post-meta">
+        {% include date.html date=latest.date %}
+        <span aria-hidden="true">·</span>
+        {% include reading-time.html content=latest.content %}
+      </p>
+
+      {% assign summary = latest.description | default: latest.excerpt %}
+      <p class="featured-summary">{{ summary | strip_html | normalize_whitespace | truncatewords: 40 }}</p>
+
+      <p class="featured-more">
+        <a href="{{ latest.url | relative_url }}">Seguir leyendo <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+
+    <hr>
+  {% endif %}
+
+  <p class="section-label">Escritos</p>
+
+  {% if site.posts.size > 0 %}
+    <ul class="post-list">
+      {% for post in site.posts %}
+        <li>
+          <a class="post-item" href="{{ post.url | relative_url }}">
+            <span class="post-date">{{ post.date | date: '%Y' }} · {{ post.date | date: '%m' }}</span>
+            <span class="post-title">{{ post.title }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Todavía no hay escritos. Vuelve pronto.</p>
+  {% endif %}
+</div>

@@ -1,0 +1,48 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+
+    {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+
+    <p class="post-meta">
+      {% include date.html date=page.date %}
+      <span aria-hidden="true">·</span>
+      {% include reading-time.html content=page.content %}
+    </p>
+  </header>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  {% if page.tags.size > 0 %}
+    <footer class="post-tags">
+      <span class="muted small">Temas:</span>
+      {% for tag in page.tags %}
+        <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </footer>
+  {% endif %}
+</article>
+
+{% if page.previous or page.next %}
+  <nav class="post-nav" aria-label="Otros escritos">
+    {% if page.previous %}
+      <a class="post-nav-item" href="{{ page.previous.url | relative_url }}">
+        <span class="post-nav-label muted small">Anterior</span>
+        <span class="post-nav-title">{{ page.previous.title }}</span>
+      </a>
+    {% endif %}
+    {% if page.next %}
+      <a class="post-nav-item post-nav-next" href="{{ page.next.url | relative_url }}">
+        <span class="post-nav-label muted small">Siguiente</span>
+        <span class="post-nav-title">{{ page.next.title }}</span>
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

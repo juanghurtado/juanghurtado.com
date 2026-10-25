@@ -1,0 +1,23 @@
+<header class="site-header">
+  <nav class="site-nav" aria-label="Principal">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+
+    <div class="site-nav-links">
+      <a href="{{ '/acerca/' | relative_url }}">Acerca</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        role="switch"
+        aria-checked="false"
+        aria-label="Cambiar entre tema claro y oscuro"
+        title="Cambiar tema (D)"
+      >
+        <span class="theme-toggle-track" aria-hidden="true"></span>
+        <span class="theme-toggle-thumb" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+</header>
