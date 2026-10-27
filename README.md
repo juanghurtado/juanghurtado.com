@@ -55,6 +55,104 @@ El nombre del archivo importa: la fecha del nombre debe coincidir con la del
 front matter. El resto del nombre se convierte en la URL. Por ejemplo,
 `2026-10-25-hola-mundo.md` se publica en `/hola-mundo/`.
 
+## Imágenes en los posts
+
+Guarda las imágenes en `assets/images/` y referéncialas desde la raíz:
+
+```md
+![Descripción](/assets/images/foto.jpg)
+```
+
+El estilo base las muestra como bloque, con el ancho máximo de la columna,
+4px de radio y márgenes.
+
+### Tamaño y posición
+
+```md
+![Pequeña](/assets/images/foto.jpg){: .small .center}
+![Mediana](/assets/images/foto.jpg){: .medium}
+![Ancha](/assets/images/foto.jpg){: .wide}
+![A sangre](/assets/images/foto.jpg){: .full}
+```
+
+| Clase | Efecto |
+| --- | --- |
+| `small` | 50% del ancho de la columna |
+| `medium` | 75% del ancho |
+| `wide` | Hasta 64rem, rompiendo la columna |
+| `full` | Borde a borde de la ventana |
+| `center` | Centrada |
+| `left` / `right` | Flotada a izquierda o derecha |
+| `outline` | Borde sutil |
+| `square` | Sin esquinas redondeadas |
+| `pixelated` | Sin suavizado, para pixel art |
+| `invert` | Invierte la imagen en modo oscuro |
+| `multiply` | Mezcla con el fondo (y `screen` en oscuro) |
+| `clear` | Corta un flotado |
+
+`left` y `right` se desactivan en móvil. Para cortar un flotado, añade
+`<div class="clear"></div>` después del bloque.
+
+### Pies de foto
+
+La opción recomendada es el include, que genera un `<figure>` accesible con
+`loading="lazy"` y un pie que sí acepta Markdown:
+
+```liquid
+{% include figure.html
+   src="/assets/images/foto.jpg"
+   alt="Descripción"
+   caption="Pie de foto con *énfasis* y [enlace](/)."
+   class="wide"
+   img_class="outline"
+   width="1600"
+   height="900" %}
+```
+
+- `class`: `small`, `medium`, `wide`, `full`, `center`, `left` o `right`.
+- `img_class`: `outline`, `square`, `pixelated`, `invert` o `multiply`.
+- `caption`: texto o Markdown.
+- `loading`: `lazy` por defecto; usa `loading="eager"` para la primera imagen.
+- `width` y `height`: dimensiones intrínsecas para reservar espacio; el tamaño visible lo decide `class`.
+- `href`: opcional, envuelve la imagen en un enlace.
+- `srcset` y `sizes`: opcionales, si preparas variantes responsive.
+
+También puedes escribir el HTML directamente:
+
+```html
+<figure class="wide" markdown="1">
+  ![Descripción](/assets/images/foto.jpg)
+  <figcaption>Pie con <em>HTML</em>.</figcaption>
+</figure>
+```
+
+Kramdown no parsea Markdown dentro de `<figcaption>`; usa HTML o el include.
+Si usas un `<figure>` manual, puedes poner la clase de tamaño en la imagen
+(`![...](...){: .wide}`) y la figura se adapta automáticamente; también puedes
+ponerla en el propio `<figure>`.
+
+### Galería
+
+```html
+<div class="gallery" markdown="1">
+  ![A](/assets/images/a.jpg)
+  ![B](/assets/images/b.jpg)
+  ![C](/assets/images/c.jpg)
+</div>
+```
+
+Se muestran como miniaturas cuadradas en cuadrícula y una sola columna en
+móvil.
+
+### Atributos sueltos
+
+```md
+![Foto](/assets/images/foto.jpg){: loading="lazy" decoding="async"}
+```
+
+No uses `width="..."` para cambiar el tamaño visible: el CSS global fuerza
+`width: auto`. Usa una clase o `style="max-width: 420px"`.
+
 ## Estructura
 
 ```

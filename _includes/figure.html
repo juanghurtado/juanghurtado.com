@@ -1,0 +1,28 @@
+{%- assign figure_class = include.class | default: '' -%}
+{%- assign image_class = include.img_class | default: '' -%}
+{%- assign loading = include.loading | default: 'lazy' -%}
+{%- assign src = include.src -%}
+{%- if src contains '://' or src contains 'data:' -%}
+  {%- assign src_url = src -%}
+{%- else -%}
+  {%- assign src_url = src | relative_url -%}
+{%- endif -%}
+{%- if include.href -%}
+  {%- if include.href contains '://' -%}
+    {%- assign href_url = include.href -%}
+  {%- else -%}
+    {%- assign href_url = include.href | relative_url -%}
+  {%- endif -%}
+{%- endif -%}
+<figure{% if figure_class != '' %} class="{{ figure_class }}"{% endif %}>
+  {%- if include.href -%}
+  <a href="{{ href_url }}">
+  {%- endif -%}
+  <img src="{{ src_url }}" alt="{{ include.alt | default: '' | escape }}"{% if include.width %} width="{{ include.width }}"{% endif %}{% if include.height %} height="{{ include.height }}"{% endif %}{% if image_class != '' %} class="{{ image_class }}"{% endif %}{% if include.title %} title="{{ include.title | escape }}"{% endif %} loading="{{ loading }}" decoding="async"{% if include.srcset %} srcset="{{ include.srcset }}"{% endif %}{% if include.sizes %} sizes="{{ include.sizes }}"{% endif %}>
+  {%- if include.href -%}
+  </a>
+  {%- endif -%}
+  {%- if include.caption -%}
+  <figcaption>{{ include.caption | markdownify }}</figcaption>
+  {%- endif -%}
+</figure>

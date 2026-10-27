@@ -46,6 +46,7 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Code",
     "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --measure: 50rem;
+  --wide-measure: 64rem;
   --line-height: 1.6;
 
   color-scheme: light;
@@ -90,7 +91,6 @@ body {
   min-height: 100svh;
   margin: 0 auto;
   padding: 0 1.5rem 6rem;
-  max-width: calc(var(--measure) + 3rem);
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
@@ -543,6 +543,185 @@ main {
   line-height: 1.45;
 }
 
+.prose figcaption p {
+  margin: 0;
+}
+
+.prose figure p {
+  margin: 0;
+}
+
+/* Utilidades de imágenes */
+
+.prose img.center,
+.prose figure.center,
+.prose figure:has(img.center) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose figure.center,
+.prose figure:has(img.center) {
+  text-align: center;
+}
+
+.prose figure.center img,
+.prose figure:has(img.center) img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose img.small,
+.prose figure.small,
+.prose figure:has(img.small) {
+  width: 50%;
+  max-width: 50%;
+}
+
+.prose img.medium,
+.prose figure.medium,
+.prose figure:has(img.medium) {
+  width: 75%;
+  max-width: 75%;
+}
+
+.prose figure.small,
+.prose figure.medium,
+.prose figure:has(img.small),
+.prose figure:has(img.medium) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose img.wide,
+.prose figure.wide,
+.prose figure:has(img.wide) {
+  width: min(100vw - 2rem, var(--wide-measure));
+  max-width: none;
+  margin-left: calc((min(100vw - 2rem, var(--wide-measure)) - 100%) / -2);
+  margin-right: 0;
+}
+
+.prose img.full,
+.prose figure.full,
+.prose figure:has(img.full) {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: 0;
+  border-radius: 0;
+}
+
+.prose figure.small img,
+.prose figure.medium img,
+.prose figure.wide img,
+.prose figure.full img,
+.prose figure:has(img.small) img,
+.prose figure:has(img.medium) img,
+.prose figure:has(img.wide) img,
+.prose figure:has(img.full) img {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.prose figure.full img {
+  border-radius: 0;
+}
+
+.prose figure.full figcaption,
+.prose figure:has(img.full) figcaption {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.prose img.left,
+.prose figure.left,
+.prose figure:has(img.left) {
+  float: left;
+  max-width: min(45%, 22rem);
+  margin: 0.3em 1.5em 1em 0;
+}
+
+.prose img.right,
+.prose figure.right,
+.prose figure:has(img.right) {
+  float: right;
+  max-width: min(45%, 22rem);
+  margin: 0.3em 0 1em 1.5em;
+}
+
+.prose figure.left img,
+.prose figure.right img,
+.prose figure:has(img.left) img,
+.prose figure:has(img.right) img {
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.prose .clear {
+  clear: both;
+}
+
+.prose .outline {
+  border: 1px solid var(--color-border);
+}
+
+.prose .square,
+.prose .square img {
+  border-radius: 0;
+}
+
+.prose .pixelated,
+.prose .pixelated img {
+  image-rendering: pixelated;
+}
+
+.prose .multiply {
+  mix-blend-mode: multiply;
+}
+
+:root[data-theme="dark"] .prose .invert {
+  filter: invert(1);
+}
+
+:root[data-theme="dark"] .prose .multiply {
+  mix-blend-mode: screen;
+}
+
+.prose .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin: 1.75em 0;
+}
+
+.prose .gallery p {
+  display: contents;
+}
+
+.prose .gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+.prose .gallery figure {
+  margin: 0;
+}
+
+.prose .gallery figcaption {
+  margin-top: 0.4em;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
 .prose code,
 .prose kbd,
 .prose samp {
@@ -794,6 +973,17 @@ main {
     display: none;
   }
 
+  .prose img.left,
+  .prose img.right,
+  .prose figure.left,
+  .prose figure.right,
+  .prose figure:has(img.left),
+  .prose figure:has(img.right) {
+    float: none;
+    max-width: 100%;
+    margin: 1.75em 0;
+  }
+
   .post-nav {
     flex-direction: column;
     gap: 1.25rem;
@@ -842,6 +1032,30 @@ main {
   .theme-toggle,
   .anchor {
     display: none;
+  }
+
+  .prose img.wide,
+  .prose img.full,
+  .prose figure.wide,
+  .prose figure.full,
+  .prose figure:has(img.wide),
+  .prose figure:has(img.full) {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+  }
+
+  .prose img.left,
+  .prose img.right,
+  .prose figure.left,
+  .prose figure.right,
+  .prose figure:has(img.left),
+  .prose figure:has(img.right) {
+    float: none;
+    max-width: 100%;
+    margin: 1em 0;
   }
 
   a {
